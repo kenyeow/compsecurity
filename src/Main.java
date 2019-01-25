@@ -242,6 +242,55 @@ public class Main {
                     autokeySelection = getAutoKeySelection();
                 }
             }
+            /**
+             * Cipher Block Chaining
+             * For Encryption:
+             * 1) Plaintext = "hello world"
+             * 2) Key = "aes1aes2aes3aes4"
+             * 3) InitVector = "randominitvector"
+             * **/
+            else if (selection == 4) {
+                Integer cbcSelection = getCBCSelection();
+                while(cbcSelection != 0){
+                    if(cbcSelection == 1){
+                        Scanner scanner = new Scanner(System.in);
+
+                        // get plaintext input
+                        System.out.print("Please enter the plaintext: ");
+                        String plaintext = scanner.nextLine();
+
+                        // get encryption key
+                        System.out.print("Please enter the encryption key (16 bytes): ");
+                        String key = scanner.nextLine();
+
+                        System.out.print("Please enter initialization vector (16 bytes): ");
+                        String initValue = scanner.nextLine();
+
+                        Encryptor.encrypt(key, initValue, plaintext);
+                    } else if (cbcSelection == 2){
+                        Scanner scanner = new Scanner(System.in);
+
+                        // get ciphertext input
+                        System.out.print("Please enter the ciphertext: ");
+                        String ciphertext = scanner.nextLine();
+
+                        // get encryption key
+                        System.out.print("Please enter the encryption key (16 bytes): ");
+                        String key = scanner.nextLine();
+
+                        System.out.print("Please enter initialization vector (16 bytes): ");
+                        String initValue = scanner.nextLine();
+
+                        System.out.println("Plaintext: " + Encryptor.decrypt(key, initValue, ciphertext) + "\n");
+                    } else {
+                        System.out.println("Wrong Input, Try Again");
+                    }
+
+                    cbcSelection = getCBCSelection();
+                }
+            } else {
+                System.out.println("Wrong Selection, Try Again");
+            }
 
             selection = getMenuSelection();
         }
@@ -250,11 +299,12 @@ public class Main {
     /**
      *  print out menu selection
      * **/
-    public static Integer getMenuSelection(){
+    private static Integer getMenuSelection(){
         System.out.println("Please select a classical symmetric ciphers");
         System.out.println("1) Additive Ciphers");
         System.out.println("2) Rail Fence Ciphers");
         System.out.println("3) AutoKey Ciphers");
+        System.out.println("4) Symmetric Cipher (CBC)");
         System.out.println("0) Quit");
 
         Scanner scanner = new Scanner(System.in);
@@ -264,7 +314,7 @@ public class Main {
         return input;
     }
 
-    public static Integer getAddtiveCipherSelection(){
+    private static Integer getAddtiveCipherSelection(){
         System.out.println("Please an operation (Additive Cipher)");
         System.out.println("1) Encryption");
         System.out.println("2) Decryption");
@@ -277,7 +327,7 @@ public class Main {
         return input;
     }
 
-    public static Integer getRailFenceSelection(){
+    private static Integer getRailFenceSelection(){
         System.out.println("Please an operation (Rail Fence Cipher)");
         System.out.println("1) Encryption");
         System.out.println("2) Decryption");
@@ -290,8 +340,21 @@ public class Main {
         return input;
     }
 
-    public static Integer getAutoKeySelection(){
+    private static Integer getAutoKeySelection(){
         System.out.println("Please an operation (AutoKey Cipher)");
+        System.out.println("1) Encryption");
+        System.out.println("2) Decryption");
+        System.out.println("0) Back to menu");
+
+        Scanner scanner = new Scanner(System.in);
+        System.out.print("Selection: ");
+        Integer input = scanner.nextInt();
+        System.out.print("\n\n");
+        return input;
+    }
+
+    private static Integer getCBCSelection(){
+        System.out.println("Please an operation (Chiper Block Chaining)");
         System.out.println("1) Encryption");
         System.out.println("2) Decryption");
         System.out.println("0) Back to menu");
