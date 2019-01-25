@@ -94,6 +94,74 @@ public class Main {
 
                     addCipherSelection = getAddtiveCipherSelection();
                 }
+            } else if (selection == 2){
+                Integer railfenceSelection = getRailFenceSelection();
+                while(railfenceSelection != 0){
+                    // encryption
+                    if(railfenceSelection == 1){
+                        Scanner scanner = new Scanner(System.in);
+
+                        // get plaintext input
+                        System.out.print("Please enter the plaintext: ");
+                        String plaintext = scanner.nextLine();
+
+                        // start time for time complexity calculation in ms.
+                        long startTime = System.currentTimeMillis();
+
+                        RailFenceCipher.encodeFunction(plaintext);
+
+                        // stop time for time complexity calculation
+                        long stopTime = System.currentTimeMillis();
+
+                        // print out complexity result
+                        System.out.println("Time complexity: " + (stopTime - startTime) + "ms\n");
+
+                        // covert ciphertext length to double
+                        double plaintextLength = new Double(plaintext.length());
+
+                        // covert to bytes
+                        double bytes =  Math.ceil(plaintextLength / 8);
+
+                        // calculate throughput -> bytes/time executed
+                        double throughput = bytes / (stopTime - startTime);
+
+                        // print throughput
+                        System.out.println("Throughput: " + throughput);
+                    } else if (railfenceSelection == 2){ // decryption
+                        Scanner scanner = new Scanner(System.in);
+
+                        // get ciphertext input
+                        System.out.print("Please enter the ciphertext: ");
+                        String ciphertext = scanner.nextLine();
+
+                        // start time for time complexity calculation in ms.
+                        long startTime = System.currentTimeMillis();
+
+                        RailFenceCipher.decodeFunction(ciphertext);
+
+                        // stop time for time complexity calculation
+                        long stopTime = System.currentTimeMillis();
+
+                        // print out complexity result
+                        System.out.println("Time complexity: " + (stopTime - startTime) + "ms\n");
+
+                        // covert ciphertext length to double
+                        double ciphertextlength = new Double(ciphertext.length());
+
+                        // covert to bytes
+                        double bytes =  Math.ceil(ciphertextlength / 8);
+
+                        // calculate throughput -> bytes/time executed
+                        double throughput = bytes / (stopTime - startTime);
+
+                        // print throughput
+                        System.out.println("Throughput: " + throughput);
+                    } else {
+                        System.out.println("Wrong Input, Try again.");
+                    }
+
+                    railfenceSelection = getRailFenceSelection();
+                }
             }
 
             selection = getMenuSelection();
@@ -106,6 +174,7 @@ public class Main {
     public static Integer getMenuSelection(){
         System.out.println("Please select a classical symmetric ciphers");
         System.out.println("1) Additive Ciphers");
+        System.out.println("2) Rail Fence Ciphers");
         System.out.println("0) Quit");
 
         Scanner scanner = new Scanner(System.in);
@@ -116,7 +185,20 @@ public class Main {
     }
 
     public static Integer getAddtiveCipherSelection(){
-        System.out.println("Please an operation");
+        System.out.println("Please an operation (Additive Cipher)");
+        System.out.println("1) Encryption");
+        System.out.println("2) Decryption");
+        System.out.println("0) Back to menu");
+
+        Scanner scanner = new Scanner(System.in);
+        System.out.print("Selection: ");
+        Integer input = scanner.nextInt();
+        System.out.print("\n\n");
+        return input;
+    }
+
+    public static Integer getRailFenceSelection(){
+        System.out.println("Please an operation (Rail Fence Cipher)");
         System.out.println("1) Encryption");
         System.out.println("2) Decryption");
         System.out.println("0) Back to menu");
