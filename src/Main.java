@@ -163,6 +163,85 @@ public class Main {
                     railfenceSelection = getRailFenceSelection();
                 }
             }
+            else if (selection == 3){
+                Integer autokeySelection = getAutoKeySelection();
+                while(autokeySelection != 0){
+                    // encryption
+                    if(autokeySelection == 1){
+                        Scanner scanner = new Scanner(System.in);
+
+                        // get plaintext input
+                        System.out.print("Please enter the plaintext: ");
+                        String plaintext = scanner.nextLine();
+
+                        // get encryption key
+                        System.out.print("Please enter the encryption key: ");
+                        Integer key = scanner.nextInt();
+
+                        // start time for time complexity calculation
+                        long startTime = System.currentTimeMillis();
+
+                        // additive cipher encryption algorithm
+                        AutoKeyCipher.encryption(plaintext, key);
+
+                        // stop time for time complexity calculation
+                        long stopTime = System.currentTimeMillis();
+
+                        // print out the result of time complexity
+                        System.out.println("Time complexity: " + (stopTime - startTime) + "ms\n");
+
+                        // covert plaintext length to double
+                        double plaintextLength = new Double(plaintext.length());
+
+                        // calculate byte
+                        double bytes =  Math.ceil(plaintextLength / 8);
+
+                        // calculate throughput -> bytes / executed time
+                        double throughput = bytes / (stopTime - startTime);
+
+                        // print throughput
+                        System.out.println("Throughput: " + throughput);
+                    } else if (autokeySelection == 2){ // decryption
+                        Scanner scanner = new Scanner(System.in);
+
+                        // get plaintext input
+                        System.out.print("Please enter the ciphertext: ");
+                        String plaintext = scanner.nextLine();
+
+                        // get encryption key
+                        System.out.print("Please enter the encryption key: ");
+                        Integer key = scanner.nextInt();
+
+                        // start time for time complexity calculation
+                        long startTime = System.currentTimeMillis();
+
+                        // additive cipher encryption algorithm
+                        AutoKeyCipher.decryption(plaintext, key);
+
+                        // stop time for time complexity calculation
+                        long stopTime = System.currentTimeMillis();
+
+                        // print out the result of time complexity
+                        System.out.println("Time complexity: " + (stopTime - startTime) + "ms\n");
+
+                        // covert plaintext length to double
+                        double plaintextLength = new Double(plaintext.length());
+
+                        // calculate byte
+                        double bytes =  Math.ceil(plaintextLength / 8);
+
+                        // calculate throughput -> bytes / executed time
+                        double throughput = bytes / (stopTime - startTime);
+
+                        // print throughput
+                        System.out.println("Throughput: " + throughput);
+                    } else {
+                        System.out.println("Wrong Input, Try again.");
+                    }
+
+                    autokeySelection = getAutoKeySelection();
+                }
+            }
 
             selection = getMenuSelection();
         }
@@ -175,6 +254,7 @@ public class Main {
         System.out.println("Please select a classical symmetric ciphers");
         System.out.println("1) Additive Ciphers");
         System.out.println("2) Rail Fence Ciphers");
+        System.out.println("3) AutoKey Ciphers");
         System.out.println("0) Quit");
 
         Scanner scanner = new Scanner(System.in);
@@ -199,6 +279,19 @@ public class Main {
 
     public static Integer getRailFenceSelection(){
         System.out.println("Please an operation (Rail Fence Cipher)");
+        System.out.println("1) Encryption");
+        System.out.println("2) Decryption");
+        System.out.println("0) Back to menu");
+
+        Scanner scanner = new Scanner(System.in);
+        System.out.print("Selection: ");
+        Integer input = scanner.nextInt();
+        System.out.print("\n\n");
+        return input;
+    }
+
+    public static Integer getAutoKeySelection(){
+        System.out.println("Please an operation (AutoKey Cipher)");
         System.out.println("1) Encryption");
         System.out.println("2) Decryption");
         System.out.println("0) Back to menu");
